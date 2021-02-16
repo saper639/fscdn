@@ -9,4 +9,3 @@
 !error_1002		  : File extension is not allowed
 !error_1003		  : File does not contain data in base64
 !error_1999		  : Unexpected error when uploading a file
-!files_not_found  : Files to upload were not found
