@@ -1,0 +1,16 @@
+{
+  "name": "cdn",
+  "version": "0.0.1",
+  "description": "Media server for storing pdf, arch, img, mov and for processing img.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexey Senotrusov (Saper639)",
+  "license": "ISC",
+  "dependencies": {
+    "file-type": "^16.2.0",
+    "mime": "^2.5.0",
+    "total4@beta": "latest"
+  }
+}

@@ -1,0 +1,11 @@
+.idea/
+tmp/*
+debug.pid
+*.log
+*.tmp
+*.mp3
+logs/
+/config
+/node_modules
+/public
+/databases
