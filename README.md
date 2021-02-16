@@ -1,4 +1,5 @@
-###Engish
+Engish
+------------------------------
 A small CDN for storing media content (pdf, jpg, png, mov). For image processing, a preprocessor with caching is built in. Made using the total framework.js [Total.js](https://tools.com)
 
 To install dependencies needed in the console to run the command `npm install`
@@ -11,7 +12,10 @@ To install dependencies needed in the console to run the command `npm install`
 * allow_type		  : jpg, jpeg, png, avi, mov, 3gp, pdf //allowed type file
 * domain		  : http://localhost:8989 //cdn domain
 
-###Русский
+---
+
+Русский
+------------------------------
 Небольшой CDN для хранения медиа контента (pdf, jpg, png, mov). Для обработки изображений встроен препроцессор с кэшированием. Сделан с использование фреймворка total.js [Total.js](https://totaljs.com)
 
 Для установки зависимостей необходимо в консоли выполнить команду `npm install`
