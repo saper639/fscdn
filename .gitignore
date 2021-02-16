@@ -5,7 +5,6 @@ debug.pid
 *.tmp
 *.mp3
 logs/
-/config
 /node_modules
 /public
 /databases
