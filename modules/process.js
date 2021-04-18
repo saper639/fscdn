@@ -6,16 +6,14 @@ function img(req, callback) {
 			var query = req.query||{};			
 			var fileid = req.path[1].split('.').shift();	
 			var hashid = HASH(req.url).toString(36);			
-			//console.log(hashid, req.url);
-			//check file in cache
-			var meta = await readMetaFileSync('cache', hashid);
 			
-			if (meta) {				
+			var meta = await readMetaFileSync('cache', hashid);			
+			if (meta) {									
 				meta.id = hashid;
 				return callback(null, meta);	
 			}
-			var ext = U.getExtension(req.path[1]);
-			FILESTORAGE('image').image(fileid, (err, image) => {
+			var ext = U.getExtension(req.path[1]);			
+			FILESTORAGE('image').image(fileid, (err, image) => {										
 				if (err) return callback(404);
 				//flip flip=v
 				if (query.flip=="v") image.flip();
@@ -82,6 +80,10 @@ function img(req, callback) {
 				//normalize, normalize=1
 				if (query.normalize) {
 					image.normalize();				
+				}	
+				//normalize, normalize=1
+				if (query.output) {
+					image.output(query.output);				
 				}	
 				//quality, ql=persentage
 				if (query.ql >= 1 && query.ql <= 100) {

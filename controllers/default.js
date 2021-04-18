@@ -1,11 +1,12 @@
 exports.install = function() {	
 	GROUP(['authorize'], function() {       	
-		ROUTE('+POST /upload', upload, ['upload'], CONF.max_filesize_base64||1024); 
-		ROUTE('+POST /upload/base64', upload_base64, ['raw'], CONF.max_filesize||1024);
-		ROUTE('GET /fs/stat/{type}',  stat);	
+		ROUTE('+POST  /upload', 			upload, 	   ['upload'], CONF.max_filesize_base64||1024); 
+		ROUTE('+POST  /upload/base64',  	upload_base64, ['raw'], CONF.max_filesize||1024);
+		ROUTE('GET 	  /fs/stat/{type}', 	stat);			
+		ROUTE('DELETE /files',			  	remove);			
 	})	
-	// File routes (image)
-	ROUTE('FILE /meta/image/*.*',  img_meta);	
+	// File routes (image)	
+	ROUTE('FILE /meta/image/*.*',  img_meta);		
 	ROUTE('FILE /image/*.jpg',  img_process);
 	ROUTE('FILE /image/*.jpeg', img_process);
 	ROUTE('FILE /image/*.png',  img_process);
@@ -48,6 +49,7 @@ function upload_base64() {
 	var self = this;		
 	MODULE('upload').dataBase64(self.body, self.callback());				
 }	
+//info about img
 function img_meta(req, res) {			
 	var fileid = req.path[2].split('.').shift();		
 	FILESTORAGE('image').read(fileid, (err, meta)=>{
@@ -59,12 +61,12 @@ function img_meta(req, res) {
 function img_process(req, res) {		
 	var query = req.query||{};			
 	var fileid = req.path[1].split('.').shift();		
-	req.uri.pathname = req.uri.pathname.replace(/\./, '-' + HASH(JSON.stringify(req.query) + '.'));	
+	req.uri.pathname = req.uri.pathname.replace(/\./, '-' + HASH(JSON.stringify(req.query) + '.'));		
 	//without process
-	if (Object.keys(query).length < 1) {		
+	if (Object.keys(query).length < 1) {			
 		res.imagefs(req.path[0], fileid, (image)=>{});				
 	} //need proceess
-	else {		
+	else {				
 		MODULE('process').img(req, (err, meta)=>{						
 			if (err) res.throw404();			
 			res.imagefs('cache', meta.id, (image)=>{});				
@@ -74,10 +76,26 @@ function img_process(req, res) {
 function file_process(req, res) {		
 	var fileid = req.path[1].split('.').shift();		
 	res.filefs(req.path[0], fileid, (name, type)=>{});				
-}	
+}
+//remove from storage	
+function remove() {
+	var self = this;
+	//параметр file не определен
+	if (Object.keys(self.query).length < 2) {	
+		return self.throw500();				
+	}	
+	[type, filename] = self.query.file.match(/[^\/]+/g);					
+	var fileid = filename.split('.').shift();	
+	FILESTORAGE(type).remove(fileid, (err)=>{
+		if (err) { 			
+			return self.throw404();		
+		}	
+		self.json(SUCCESS(true, filename));       	
+	});	
+}
 //auth
-AUTH(function($) {
-	var query = $.query||{};
+AUTH(function($) {		
+	var query = $.query||{};	
 	if (!query.key || query.key !== CONF.auth_key) return $.invalid()
 	return $.success();
 })	
@@ -87,4 +105,10 @@ function view_error() {
     var err = self.route.name;      
     self.json(SUCCESS(false, RESOURCE('!error_'+err), err));       	
 }	
+//job for clean expired files in cache
+SCHEDULE('00:00', '10 minutes', function() {
+	FILESTORAGE('cache').clean((err)=>{
+		if (err) console.log('Error clean cache: ', err);
+	});
+});	
 
