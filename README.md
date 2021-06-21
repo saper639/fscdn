@@ -1,4 +1,4 @@
-Engish
+English
 ------------------------------
 A small CDN for storing media content (pdf, jpg, png, mov). For image processing, a preprocessor with caching is built in. Made using the total framework.js [Total.js](https://tools.com)
 
