@@ -2,9 +2,10 @@ name                      : CDN
 version                   : 0.0.1
 author                    : Alexey Senotrusov(Saper639)
 default_port              : 8989
-max_filesize		  : 5000
-max_filesize_base64	  : 3000	
-auth_key		  : gjkd75893
-allow_base64_type	  : jpg, jpeg, png
-allow_type		  : jpg, jpeg, png, avi, mov, 3gp, pdf 
-domain			  : http://localhost:8989
+max_filesize		  	  : 5000
+max_filesize_base64	  	  : 3000	
+auth_key		 		  : gjkd75893
+allow_base64_type	  	  : jpg, jpeg, png
+allow_type		 		  : jpg, jpeg, png, avi, mov, 3gp, pdf
+//prefix				  : cdn 
+domain			  		  : http://localhost:8989

@@ -11,6 +11,6 @@
   "dependencies": {
     "file-type": "^16.2.0",
     "mime": "^2.5.0",
-    "total4@beta": "latest"
+    "total4": "latest"
   }
 }

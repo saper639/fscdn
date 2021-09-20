@@ -27,6 +27,7 @@ function dataBase64(data, callback) {
 			//save file to FiliStorage
 			var meta = await saveFileSync(fsname, fileid, filename, PATH.temp(fileTemp));						
 			meta.filename = fsname + '/'+ filename;
+			if (CONF.prefix) meta.filename_prefix = CONF.prefix + '/'+ meta.filename;
 			meta.url = domain() + '/' + meta.filename;
 			//unlink file
 			PATH.unlink(PATH.temp(fileTemp), (	)=>{});
@@ -64,6 +65,7 @@ function listFiles(files, callback) {
 				//save file to FiliStorage
 				var meta = await saveFileSync(fsname, fileid, filename, file.path);						
 				meta.filename = fsname + '/'+ filename;
+				if (CONF.prefix) meta.filename_prefix = CONF.prefix + '/'+ meta.filename;
 				meta.url = domain() + '/' + meta.filename;
 				arr.push(meta);	
 			} catch(err) {

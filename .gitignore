@@ -1,6 +1,8 @@
 .idea/
 tmp/*
 debug.pid
+index.pid
+package-lock.json
 *.log
 *.tmp
 *.mp3
