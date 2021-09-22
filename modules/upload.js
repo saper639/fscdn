@@ -26,11 +26,11 @@ function dataBase64(data, callback) {
 			var filename = fileid+'.'+type.ext;
 			//save file to FiliStorage
 			var meta = await saveFileSync(fsname, fileid, filename, PATH.temp(fileTemp));						
-			meta.filename = fsname + '/'+ filename;
-			if (CONF.prefix) meta.filename_prefix = CONF.prefix + '/'+ meta.filename;
-			meta.url = domain() + '/' + meta.filename;
+			meta.filepath = fsname + '/'+ filename;
+			if (CONF.prefix) meta.filepath = CONF.prefix + '/'+ meta.filepath;
+			meta.url = domain() + '/' + meta.filepath;
 			//unlink file
-			PATH.unlink(PATH.temp(fileTemp), (	)=>{});
+			PATH.unlink(PATH.temp(fileTemp), ()=>{});
 			return callback(SUCCESS(true, meta));
 		} catch (err) {
 			console.error('Upload/dataBase64', err);
@@ -64,9 +64,9 @@ function listFiles(files, callback) {
 				var filename = fileid+'.'+ext;
 				//save file to FiliStorage
 				var meta = await saveFileSync(fsname, fileid, filename, file.path);						
-				meta.filename = fsname + '/'+ filename;
-				if (CONF.prefix) meta.filename_prefix = CONF.prefix + '/'+ meta.filename;
-				meta.url = domain() + '/' + meta.filename;
+				meta.filepath = fsname + '/'+ filename;
+				if (CONF.prefix) meta.filepath = CONF.prefix + '/'+ meta.filepath;
+				meta.url = domain() + '/' + meta.filepath;
 				arr.push(meta);	
 			} catch(err) {
 				console.error('Upload/listFiles', err);

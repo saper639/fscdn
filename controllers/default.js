@@ -93,6 +93,11 @@ function remove() {
 		self.json(SUCCESS(true, filename));       	
 	});	
 }
+if (CONF.debug) {
+	ON('request', function(req, res) { 
+		console.log(req.uri); 
+	});
+}
 //auth
 AUTH(function($) {		
 	var query = $.query||{};	
