@@ -1,4 +1,5 @@
 exports.install = function() {	
+	ROUTE('GET 	  /api/stat',              				 	stat                );
 	GROUP(['authorize'], function() {       	
 		ROUTE('+POST  /upload', 			upload, 	   ['upload'], CONF.max_filesize_base64||1024); 
 		ROUTE('+POST  /upload/base64',  	upload_base64, ['raw'], CONF.max_filesize||1024);
@@ -110,6 +111,12 @@ function view_error() {
     var err = self.route.name;      
     self.json(SUCCESS(false, RESOURCE('!error_'+err), err));       	
 }	
+//stat
+function stat() {
+	var self = this;
+	self.json(F.stats);
+}
+
 //job for clean expired files in cache
 SCHEDULE('00:00', '10 minutes', function() {
 	FILESTORAGE('cache').clean((err)=>{
