@@ -96,9 +96,9 @@ function remove() {
 }
 if (CONF.debug) {
 	ON('request', function(req, res) { 
-       	    console.log('*'); 
-	    console.log('request', req); 
-	    console.log('request', req.uri); 
+       	    //console.log('*'); 
+	    //console.log('request', req); 
+	    //console.log('request', req.uri); 
 	});
 }
 //auth

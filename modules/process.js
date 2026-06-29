@@ -95,7 +95,7 @@ function img(req, callback) {
 				}, null, '5 day');
 			})			
 		} catch (err) {
-			console.log('err', err);
+			//console.log('err', err);
 			return callback(404);
 		}						
 	})();				
